@@ -5,13 +5,23 @@ jobs:
   update-code:
     runs-on: ubuntu-latest
     steps:
-      - name: Copy folder content recursively to remote
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: ./
-          remote: /VOL200GB/test_emanuele
-          host: ${{ secrets.SERVER }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-      
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Copy files via SFTP
+      env:
+        SFTP_USER: ${{ secrets.USERNAME }}
+        SFTP_HOST: ${{ secrets.SERVER }}
+        SFTP_PORT: ${{ secrets.PORT }}
+        SFTP_PATH: ${{ secrets.PATH }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        sshpass -e sftp -o StrictHostKeyChecking=no $SFTP_USER@$SFTP_HOST:$SFTP_PORT <<EOF
+        put -r ./* $SFTP_PATH
+        bye
+        EOF
