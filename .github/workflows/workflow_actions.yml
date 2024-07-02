@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: deploy
-      uses: pressidium/lftp-mirror-action@v1
+      uses: actions/checkout@v4
+      uses: Dylan700/sftp-upload-action@latest
       with:
-        host: ${{ secrets.SERVER }}
-        port: ${{ secrets.PORT }}
-        user: ${{ secrets.USERNAME }}
-        pass: ${{ secrets.PASSWORD }}
-        localDir: './'
-        remoteDir: '/VOL200GB/test_emanuele/'
-     
+        server: ${{secrets.SERVER}}
+        username: ${{secrets.USERNAME}}
+        password: ${{secrets.PASSWORD}}
+        port: 63426
+        uploads: |
+        ./ => /VOL200GB
