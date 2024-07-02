@@ -14,4 +14,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
       - name: Sync files    
-        run: rsync -avz --delete-after --exclude '.git' ./ estorti@193.205.129.120 -p 3426 :/VOL200GB/test_emanuele
+        run: rsync -avz --delete-after --exclude '.git' ./ estorti@193.205.129.120 -p 63426 :/VOL200GB/test_emanuele
