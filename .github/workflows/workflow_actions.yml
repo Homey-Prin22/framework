@@ -14,13 +14,4 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
       - name: Sync files    
-        run: rsync -avz --delete-after --exclude '.git' ./ ${{username}}@${{server}} -p${{port}}:/opt/test_emanuele
-        
-      - name: Execute remote commands
-        run: |
-        ssh ${{username}@${{server}} -p ${{port}} << 'EOF'
-        cd /opt/test_emanuele
-        # Add your deployment commands here
-        touch ciao.txt
-        echo "Ciao!" >> ciao.txt
-        EOF
+        run: rsync -avz --delete-after --exclude '.git' ./ ${{username}}@${{server}} -p${{port}}:/VOL200GB/test_emanuele
