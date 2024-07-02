@@ -23,6 +23,7 @@ jobs:
     - name: Upload Files
       id: upload
       uses: Creepios/sftp-action@v1.0.3
+      timeout-minutes: 3
       with:
         host: '193.205.129.120'
         port: 63426
