@@ -9,8 +9,10 @@ jobs:
   update-code:
     runs-on: ubuntu-latest
     steps:
-    - name: deploy
+    - name: checkout
       uses: actions/checkout@v4
+      
+    - name: deploy
       uses: Dylan700/sftp-upload-action@latest
       with:
         server: ${{secrets.SERVER}}
