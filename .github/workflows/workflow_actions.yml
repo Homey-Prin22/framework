@@ -14,45 +14,16 @@ on:
 # A workflow run is made up of one or more jobs 
 # that can run sequentially or in parallel
 jobs:
+  - name: Checkout
+      uses: actions/checkout@v2.3.4
+  - name: Upload Files
+      id: upload
+      uses: Creepios/sftp-action@v1.0.3
+      with:
+        host: '193.205.129.120'
+        port: 63426
+        username: 'estorti'
+        password: '${{ secrets.PASSWORD}}'
+        localPath: './'
+        remotePath: '/VOL200GB/test_emanuele'
 
-  # This workflow contains a single job called "SFTP-Deploy-Action"
-  SFTP-Deploy-Action:
-    name: SFTP-Deploy-Action
-
-    # The type of runner that the job will run on 
-    # (depends on server but usually this value is works)
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks 
-    # that will be executed as part of the job
-    steps:
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, 
-      # so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-
-          # Fetch all history for all tags and branches
-          fetch-depth: 0
-
-          # Checkout a specific branch
-          ref: main
-
-      # This is a composite GitHub Action (Linux runner) 
-      # for deploying repository content to remote server
-      - name: SFTP-Deploy-Action
-        uses: milanmk/actions-file-deployer@master
-        with:
-          remote-protocol: sftp
-
-          # Credentials for SFTP access to server using GitHub secrets
-          remote-host: ${{ secrets.SERVER }}
-          remote-user: ${{ secrets.USERNAME }}
-          remote-password: ${{ secrets.PASSWORD }}
-
-          # Path for specific folder on server for files deployment
-          remote-path: /VOL200GB/test_emanuele
-
-          # Port for SFTP access to server
-          remote-port: 63426
