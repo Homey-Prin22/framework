@@ -16,6 +16,6 @@ jobs:
         port: ${{ secrets.PORT }}
         user: ${{ secrets.USERNAME }}
         pass: ${{ secrets.PASSWORD }}
-        localDir: './test'
+        localDir: './'
         remoteDir: '/VOL200GB/test_emanuele/'
      
