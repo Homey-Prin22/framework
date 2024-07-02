@@ -18,4 +18,4 @@ jobs:
         password: ${{secrets.PASSWORD}}
         port: 63426
         uploads: |
-        ./ => /VOL200GB
+         ./ => /VOL200GB/test_emanuele
