@@ -25,7 +25,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        sshpass -e sftp -o StrictHostKeyChecking=no $SFTP_USER@$SFTP_HOST:$SFTP_PORT <<EOF
+        sshpass -e sftp -o StrictHostKeyChecking=no $SFTP_USER@$SFTP_HOST -P$SFTP_PORT <<EOF
         put -r ./* $SFTP_PATH
         bye
         EOF
