@@ -20,7 +20,7 @@ jobs:
         SFTP_PORT: ${{ secrets.PORT }}
         SFTP_PATH: ${{ secrets.PATH }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-	SSHPASS: ${{ secrets.PASSWORD }}
+        SSHPASS: ${{ secrets.PASSWORD }}
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
