@@ -1,7 +1,7 @@
 # This is a basic workflow to upload files 
 # from GitHub to server via GitHub Actions
 name: workflow_actions
-run-name: ${{ github.actor }} is learning GitHub Actions!
+run-name: ${{ github.actor }} pushed on the repository
 
 # Controls when the workflow will run
 on:
@@ -25,10 +25,10 @@ jobs:
       uses: Creepios/sftp-action@v1.0.3
       timeout-minutes: 3
       with:
-        host: '193.205.129.120'
-        port: 63426
-        username: 'estorti'
+        host: '${{ secrets.SERVER}}'
+        port: '${{ secrets.PORT}}'
+        username: '${{ secrets.USERNAME}}'
         password: '${{ secrets.PASSWORD}}'
-        localPath: './'
-        remotePath: '/VOL200GB/test_emanuele'
+        localPath: './code/'
+        remotePath: '/VOL200GB/framework'
 
