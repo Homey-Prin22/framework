@@ -3,7 +3,7 @@
 # Infinite loop to execute the tasks every 60 seconds
 while true; do
   # Add a character "x" to the file abc.txt
-  echo -n "x" >> text/file.txt
+  echo -n "x" >> test/file.txt
 
   # Stage all changes for commit
   git add *
