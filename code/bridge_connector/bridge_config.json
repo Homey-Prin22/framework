@@ -1,0 +1,26 @@
+{
+    "mqtt_broker": {
+        "host": "192.168.104.78",
+        "port": 1883
+    },
+    "kafka_broker": {
+        "bootstrap_servers": "localhost:9092"
+    },
+    "topics": [
+        {
+            "mqtt_topic": "imu/arm/wrist",
+            "kafka_topic": "imu_arm_wrist"
+        },
+        {
+            "mqtt_topic": "imu/arm/forearm",
+            "kafka_topic": "imu_arm_forearm"
+        },
+        {
+            "mqtt_topic": "imu/arm/upperarm",
+            "kafka_topic": "imu_arm_upperarm"
+        }
+        
+    ]
+    
+
+}

@@ -1,0 +1,4 @@
+# Configurazione MQTT
+MQTT_BROKER = "192.168.104.78"
+MQTT_PORT = 1883
+MQTT_TOPIC = "imu/arm"
