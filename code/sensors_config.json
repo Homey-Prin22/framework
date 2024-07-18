@@ -1,0 +1,36 @@
+{
+    "imu_unit_1": {
+        "broker": "localhost",
+        "port": 9092,
+        "topic": "imu_arm_wrist",
+        "fields_to_monitor": ["sensor_id", "position", "data"],
+        "dbms" : "influxdb",
+        "bucket" : "imu_arm_wrist",
+        "measurement": "imu_arm_wrist",
+        "tags": ["sensor_id", "position"],
+        "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"]
+    },
+    "imu_unit_2": {
+        "broker": "localhost",
+        "port": 9092,
+        "topic": "imu_arm_forearm",
+        "fields_to_monitor": ["sensor_id", "position", "data"],
+        "dbms": "influxdb",
+        "bucket": "imu_arm_forearm",
+        "measurement": "imu_arm_forearm",
+        "tags": ["sensor_id", "position"],
+        "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"]
+    },
+    "imu_unit_3": {
+        "broker": "localhost",
+        "port": 9092,
+        "topic": "imu_arm_upperarm",
+        "fields_to_monitor": ["sensor_id", "position", "data"],
+        "dbms": "influxdb",
+        "bucket": "imu_arm_upperarm",
+        "measurement": "imu_arm_upperarm",
+        "tags": ["sensor_id", "position"],
+        "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"]
+    }
+
+}
