@@ -65,6 +65,6 @@ def monitor_on_demand(sensor_ids, config_file):
 # Esempio di utilizzo
 if __name__ == "__main__":
     sensor_ids = ["imu_unit_1", "imu_unit_2", "imu_unit_3"]
-    config_file = 'sensors_config.json'
+    config_file = './VOL200GB/framework/sensors_config.json'
     
     monitor_on_demand(sensor_ids, config_file)
