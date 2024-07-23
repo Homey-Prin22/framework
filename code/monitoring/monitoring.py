@@ -55,7 +55,6 @@ def monitor_on_demand(sensor_ids, config_file):
         else:
             print(f"Warning: Sensor ID {sensor_id} not found in configuration.")
     
-    # Manteniamo il programma principale in esecuzione
     try:
         while True:
             pass

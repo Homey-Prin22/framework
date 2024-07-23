@@ -21,8 +21,6 @@ def create_kafka_consumer(sensor_info):
     broker = sensor_info['broker']
     port = sensor_info['port']
     topic = sensor_info['topic']
-
-    print(topic)
     
     consumer = KafkaConsumer(
         topic,
@@ -42,7 +40,6 @@ def consume_sensor_data(sensor_info, site, stop_event, message_queue):
             break
 
         if site == 'lab':
-            print(message.value['payload'])
             message_value = message.value['payload']
             filtered_message = filter_message(message_value, fields)
             message_queue.append(filtered_message)
@@ -50,32 +47,3 @@ def consume_sensor_data(sensor_info, site, stop_event, message_queue):
             if message.value['room'] == site:
                 filtered_message = filter_message(message.value, fields)
                 message_queue.append(filtered_message)
-
-
-
-'''
-def consume_sensor_data(sensor_info):
-    broker = sensor_info['broker']
-    port = sensor_info['port']
-    topic = sensor_info['topic']
-    fields = sensor_info['fields_to_monitor']
-
-    
-    consumer = KafkaConsumer(
-        topic,
-        bootstrap_servers=f'{broker}:{port}',
-        auto_offset_reset='latest',
-        enable_auto_commit=True,
-        value_deserializer=lambda x: json.loads(x.decode('utf-8'))
-    )
-
-    return consumer
-
-       
-    for message in consumer:
-        print(message)
-        print(message.value)
-        filtered_message = filter_message(message.value, fields)
-        yield filtered_message
-        #print(filtered_message)
-    '''

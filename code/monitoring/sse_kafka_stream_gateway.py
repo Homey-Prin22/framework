@@ -9,7 +9,6 @@ app = Flask(__name__)
 @app.route('/api/data', methods=['GET'])
 def get_data():
     site = request.args.get('site')
-    print(site)
 
     if not site:
         return jsonify({"error": "Site is required"}), 400
@@ -22,17 +21,6 @@ def get_data():
     
     if not sensors_in_site:
         return jsonify({"error": f"No sensors found in site {site}"}), 404
-    '''
-    def generate():
-        for sensor in sensors_in_site:
-            for filtered_message in consume_sensor_data(sensor):
-                yield f"data: {json.dumps(filtered_message)}\n\n"
-        
-        #for filtered_message in consume_sensor_data(sensor_info):
-            #yield f"data: {json.dumps(filtered_message)}\n\n"
-
-    return Response(generate(), content_type='text/event-stream')
-    '''
 
     def generate():
         stop_event = threading.Event()
@@ -43,7 +31,6 @@ def get_data():
             consume_sensor_data(sensor_info, site, stop_event, message_queue)
         
         for sensor in sensors_in_site:
-            
             thread = threading.Thread(target=thread_target, args=(sensor,))
             thread.start()
             threads.append(thread)

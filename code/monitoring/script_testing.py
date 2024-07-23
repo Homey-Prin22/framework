@@ -17,7 +17,6 @@ def fetch_sensor_data(site):
         return
     else:
         client = sseclient.SSEClient(url)
-        #print(client)
         
         try:
             for event in client:
@@ -29,11 +28,3 @@ if __name__ == "__main__":
     site = input("Enter the site name: ")
     fetch_sensor_data(site)
 
-
-'''
-        try:
-            for event in client.events():
-                print(f"Event: {event.data}")
-            data = json.loads(event.data)
-            print(f"New data received: {data}")
-    '''
