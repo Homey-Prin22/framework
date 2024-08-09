@@ -5,7 +5,10 @@ import threading
 from influxdb_client.client.write_api import SYNCHRONOUS
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+import utils
 
+BROKER="localhost"
+PORT=9092
 
 # Funzione per caricare la configurazione dei sensori da file JSON
 def load_sensor_config(config_file):
@@ -16,6 +19,12 @@ def load_sensor_config(config_file):
 def load_db_config(config_file):
     with open(config_file, 'r') as file:
         return json.load(file)
+
+# Funzione per caricare la configurazione dei sensori di KG
+def load_sensor_config_KG():
+    print("Loading from KG...")
+    sensors = utils.get_Sensor_Info("influx")
+    return sensors
 
 # Funzione per creare un client InfluxDB
 def create_influxdb_client(db_config):
@@ -67,7 +76,7 @@ def process_message(message, influxdb_client, sensor_info):
             fields[field.replace('.', '_')] = value
 
     try:
-        point = Point(sensor_info['measurement'])
+        point = Point(sensor_info['table'])
         
         for tag_key, tag_value in tags.items():
             point = point.tag(tag_key, tag_value)
@@ -80,8 +89,8 @@ def process_message(message, influxdb_client, sensor_info):
 
     try:
         write_api = influxdb_client.write_api(write_options=WriteOptions(batch_size=1))
-        write_api.write(sensor_info['bucket'], org=db_config['influxdb']['org'], record=point)
-        print(f"Data written to InfluxDB bucket '{sensor_info['bucket']}' successfully.")
+        write_api.write(sensor_info['database'], org=db_config['influxdb']['org'], record=point)
+        print(f"Data written to InfluxDB bucket '{sensor_info['database']}' successfully.")
     
     except Exception as e:
         print(f"Failed to write data to InfluxDB: {e}")
@@ -90,8 +99,8 @@ def process_message(message, influxdb_client, sensor_info):
 
 # Funzione per consumare i messaggi da Kafka
 def consume_kafka_messages(sensor_info, process_message):
-    broker = sensor_info['broker']
-    port = sensor_info['port']
+    broker = BROKER
+    port = PORT
     topic = sensor_info['topic']
 
     url = f'{broker}:{port}'
@@ -116,29 +125,36 @@ def start_consumer_thread(sensor_info, influxdb_client):
 
 
 
+def launch_thread(sensor_info,influx_client):
+    thread = threading.Thread(target=start_consumer_thread, args=(sensor_info, influxdb_client))
+    thread.start()
+    return thread
+
+
+
 if __name__ == "__main__":
-    sensor_config_file = './VOL200GB/framework/sensors_config.json'
-    db_config_file = './VOL200GB/framework/db_config.json'
-
-    sensor_config = load_sensor_config(sensor_config_file)
+    #sensor_config_file = './VOL200GB/framework/sensors_config.json'
+    db_config_file = '/VOL200GB/framework/db_config.json'
     db_config = load_db_config(db_config_file)
-
     influxdb_client = create_influxdb_client(db_config['influxdb'])
-
+    
     if influxdb_client:
         print(f"Connected to InfluxDB at {db_config['influxdb']['address']}")
     
-
-    threads = []
-    for sensor_id, sensor_info in sensor_config.items():
-        ensure_bucket_exists(influxdb_client, sensor_info['bucket'])
+    #sensor_config = load_sensor_config(sensor_config_file)
+    sensor_config = load_sensor_config_KG()
+    print(sensor_config)
     
-    for sensor_id, sensor_info in sensor_config.items():
-        sensor_info['sensor_id'] = sensor_id
+    threads = []
+        
+    for sensor_info in sensor_config:
+        ensure_bucket_exists(influxdb_client, sensor_info['database'])
+    
+    for sensor_info in sensor_config:
+        sensor_id = sensor_info["sensor_id"]
         print(f"{sensor_id} {sensor_info}")
 
-        thread = threading.Thread(target=start_consumer_thread, args=(sensor_info, influxdb_client))
-        thread.start()
+        thread = launch_thread(sensor_info, influxdb_client)
         threads.append(thread)
         print(f"Started thread for sensor: {sensor_id}")
 
@@ -149,3 +165,4 @@ if __name__ == "__main__":
         for thread in threads:
             thread.join()
     print("All threads have finished.")
+    
