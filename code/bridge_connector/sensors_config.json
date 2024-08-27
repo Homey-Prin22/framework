@@ -1,0 +1,197 @@
+{
+    "sensors": {
+        "imu_unit_1": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "imu/arm/wrist",
+            "kafka_topic": "imu_arm_wrist",
+            "fields_to_monitor": ["sensor_id", "position", "data"],
+            "dbms" : "influxdb",
+            "bucket" : "imu_arm_wrist",
+            "measurement": "imu_arm_wrist",
+            "tags": ["sensor_id", "position"],
+            "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"],
+            "site": "lab"
+
+        },
+        "imu_unit_2": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "imu/arm/forearm",
+            "kafka_topic": "imu_arm_forearm",
+            "fields_to_monitor": ["sensor_id", "position", "data"],
+            "dbms": "influxdb",
+            "bucket": "imu_arm_forearm",
+            "measurement": "imu_arm_forearm",
+            "tags": ["sensor_id", "position"],
+            "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"],
+            "site": "lab"
+        },
+        "imu_unit_3": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "imu/arm/upperarm",
+            "kafka_topic": "imu_arm_upperarm",
+            "fields_to_monitor": ["sensor_id", "position", "data"],
+            "dbms": "influxdb",
+            "bucket": "imu_arm_upperarm",
+            "measurement": "imu_arm_upperarm",
+            "tags": ["sensor_id", "position"],
+            "fields_to_store": ["quaternion.x", "quaternion.y", "quaternion.z", "quaternion.w"],
+            "site": "lab"
+        },
+
+        "1_temp": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "temperature",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "temperature",
+            "measurement": "temperature",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "kitchen"
+        },
+
+        "1_hum": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "humidity",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "humidity",
+            "measurement": "humidity",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "kitchen"
+        },
+
+        "2_temp": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "temperature",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "temperature",
+            "measurement": "temperature",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "living room"
+        },
+
+        "2_hum": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "humidity",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "humidity",
+            "measurement": "humidity",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "living room"
+        },
+
+        "3_temp": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "temperature",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "temperature",
+            "measurement": "temperature",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "bedroom"
+        },
+
+        "3_hum": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "humidity",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "humidity",
+            "measurement": "humidity",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "bedroom"
+        },
+
+        "4_temp": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "temperature",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "temperature",
+            "measurement": "temperature",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "bathroom"
+        },
+
+        "4_hum": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "humidity",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "humidity",
+            "measurement": "humidity",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "bathroom"
+        },
+
+        "5_temp": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "temperature",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "temperature",
+            "measurement": "temperature",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "dining room"
+        },
+
+        "5_hum": {
+            "broker": "localhost",
+            "port": 9092,
+            "kafka_topic": "humidity",
+            "fields_to_monitor": ["sensor_id", "measure", "value"],
+            "dbms": "influxdb",
+            "bucket": "humidity",
+            "measurement": "humidity",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "dining room"
+        },
+
+        "sensor_mix": {
+            "broker": "localhost",
+            "port": 9092,
+            "fields_to_monitor": ["sensor_id", "timestamp"],
+            "dbms": "influxdb",
+            "tags": ["sensor_id", "room", "floor"],
+            "fields_to_store": ["value"],
+            "site": "lab",
+            "mqtt_topic": "sensor_mix/data",
+            "kafka_topics": {
+                "temperature": "temperature_topic",
+                "humidity": "humidity_topic"
+            }
+        }
+    },
+    "mqtt_broker": {
+        "host": "192.168.104.78",
+        "port": 1883
+    },
+    "kafka_broker": {
+        "bootstrap_servers": "localhost:9092"
+    }
+
+}
