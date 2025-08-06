@@ -30,5 +30,5 @@ jobs:
         username: '${{ secrets.USERNAME}}'
         password: '${{ secrets.PASSWORD}}'
         localPath: './code/'
-        remotePath: '/VOL200GB/framework'
+        remotePath: '/VOL200GB/github_output'
 
