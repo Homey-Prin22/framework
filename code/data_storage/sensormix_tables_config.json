@@ -1,0 +1,11 @@
+{
+    "tables": {
+      "sensor_mix_kitchen": "environment_kitchen",
+      "sensor_mix_bedroom": "environment_bedroom",
+      "sensor_mix_living_room": "environment_living_room",
+      "sensor_mix_bathroom": "environment_bathroom",
+      "sensor_mix_dining_room": "environment_dining_room",
+      "sensor_mix_garage": "environment_garage",
+      "sensor_mix_garden": "environment_garden"
+    }
+  }
