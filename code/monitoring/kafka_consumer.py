@@ -5,26 +5,10 @@ from kafka import KafkaConsumer
 BROKER = "localhost"
 PORT = 9092
 
-def load_sensor_config(json_file):
-    with open(json_file, 'r') as file:
-        return json.load(file)
 
-#def get_sensor_info(sensor_config, sensor_id):
-#    sensor_id = str(sensor_id)
-#    return sensor_config.get(sensor_id, None)
-
-#def get_sensors_in_site(sensor_config, site):
-#    sensors = [sensor for sensor in sensor_config.values() if sensor['site'] == site]
-#    return sensors
-
-#def filter_message(message, fields):
-#    return {field: message[field] for field in fields if field in message}
-
-def create_kafka_consumer(sensor_info):
+def create_kafka_consumer(topic):
     broker = BROKER
     port = PORT
-    print(sensor_info)
-    topic = sensor_info['topic']
     
     consumer = KafkaConsumer(
         topic,
@@ -35,20 +19,23 @@ def create_kafka_consumer(sensor_info):
     )
     return consumer
 
+def filter_message(message, fields_not_to_monitor):
+    #return {field: message[field] for field in fields if field in message}
+    return {field: message[field] for field in message if field not in fields_not_to_monitor}
+
+# Funzione che gestisce il consumo dei messaggi da Kafka per un singolo sensore
 def consume_sensor_data(sensor_info, stop_event, message_queue):
-    consumer = create_kafka_consumer(sensor_info)
-    fields = sensor_info['fields_to_monitor']
+    topic = sensor_info['topic']
+    fields = sensor_info['fields_not_to_monitor']
+    
+    consumer = create_kafka_consumer(topic)
     
     for message in consumer:
         if stop_event.is_set():
             break
-
-        #if site == 'lab':
-        message_value = message.value['payload']
-        #filtered_message = filter_message(message_value, fields)
-        #message_queue.append(filtered_message)
-        message_queue.append(message_value)
-        #else:
-        #    if message.value['room'] == site:
-        #        filtered_message = filter_message(message.value, fields)
-        #        message_queue.append(filtered_message)
+        	
+        #print(message.value)
+        filtered_message = filter_message(message.value, fields)
+        #filtered_message = message
+        
+        message_queue.put(filtered_message)
