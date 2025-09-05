@@ -248,7 +248,7 @@
         }
     },
     "mqtt_broker": {
-        "host": "192.168.104.78",
+        "host": "localhost",
         "port": 1883
     },
     "kafka_broker": {

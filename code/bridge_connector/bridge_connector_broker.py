@@ -96,7 +96,7 @@ def process_and_forward_message(sensor, mqtt_topic, payload_json, kafka_producer
         print(f"No Kafka topic for MQTT topic {mqtt_topic}")                    
 
 # Carica la configurazione
-config = load_config('/VOL200GB/framework/bridge_connector/sensors_config.json')
+config = load_config('/framework/code/bridge_connector/sensors_config.json')
 
 # Crea un client Kafka per l'amministrazione
 admin_client = create_kafka_admin_client(config['kafka_broker']['bootstrap_servers'])
