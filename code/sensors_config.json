@@ -37,134 +37,250 @@
         "site": "lab"
     },
 
-    "1_temp": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "temperature",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "temperature",
-        "measurement": "temperature",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "kitchen"
-    },
-
-    "1_hum": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "humidity",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "humidity",
-        "measurement": "humidity",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "kitchen"
-    },
-
-    "2_temp": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "temperature",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "temperature",
-        "measurement": "temperature",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "living room"
-    },
-
-    "2_hum": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "humidity",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "humidity",
-        "measurement": "humidity",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "living room"
-    },
-
-    "3_temp": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "temperature",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "temperature",
-        "measurement": "temperature",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "bedroom"
-    },
-
-    "3_hum": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "humidity",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "humidity",
-        "measurement": "humidity",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "bedroom"
-    },
-
-    "4_temp": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "temperature",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "temperature",
-        "measurement": "temperature",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "bathroom"
-    },
-
-    "4_hum": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "humidity",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "humidity",
-        "measurement": "humidity",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "bathroom"
-    },
-
-    "5_temp": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "temperature",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "temperature",
-        "measurement": "temperature",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "dining room"
-    },
-
-    "5_hum": {
-        "broker": "localhost",
-        "port": 9092,
-        "topic": "humidity",
-        "fields_to_monitor": ["sensor_id", "measure", "value"],
-        "dbms": "influxdb",
-        "bucket": "humidity",
-        "measurement": "humidity",
-        "tags": ["sensor_id", "room", "floor"],
-        "fields_to_store": ["value"],
-        "site": "dining room"
-    }
-
+    "area1_room1": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area1/room1",
+            "kafka_topic": "area1_room1",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area1_room2": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area1/room2",
+            "kafka_topic": "area1_room2",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area2_room1": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area2/room1",
+            "kafka_topic": "area2_room1",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area2_room2": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area2/room2",
+            "kafka_topic": "area2_room2",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area1_lab1": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area1/lab1",
+            "kafka_topic": "area1_lab1",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area2_server_room": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area2/server_room",
+            "kafka_topic": "area2_server_room",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "area1_storage": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "area1/storage",
+            "kafka_topic": "area1_storage",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "1": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/1",
+            "kafka_topic": "factory_machinery_1",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "2": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/2",
+            "kafka_topic": "factory_machinery_2",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "3": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/3",
+            "kafka_topic": "factory_machinery_3",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "4": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/4",
+            "kafka_topic": "factory_machinery_4",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "5": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/5",
+            "kafka_topic": "factory_machinery_5",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "6": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "factory/machinery/6",
+            "kafka_topic": "factory_machinery_6",
+            "fields_to_monitor": [
+                "machine_id",
+                "temp_motore",
+                "temp_superficie",
+                "rumore",
+                "vel_rotazione",
+                "vibrazioni",
+                "timestamp"
+            ]
+        },
+        "sensor_mix_kitchen": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/kitchen",
+            "kafka_topic": "environment_kitchen",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "sensor_mix_living_room": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/living_room",
+            "kafka_topic": "environment_living_room",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "sensor_mix_bedroom": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/bedroom",
+            "kafka_topic": "environment_bedroom",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "sensor_mix_bathroom": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/bathroom",
+            "kafka_topic": "environment_bathroom",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "sensor_mix_dining_room": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/dining_room",
+            "kafka_topic": "environment_dining_room",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        },
+        "sensor_mix_garage": {
+            "broker": "localhost",
+            "port": 9092,
+            "mqtt_topic": "environment/garage",
+            "kafka_topic": "environment_garage",
+            "fields_to_monitor": [
+                "sensor_id",
+                "temperature",
+                "humidity",
+                "air_particles"
+            ]
+        }
 }
