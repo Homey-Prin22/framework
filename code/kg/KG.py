@@ -17,10 +17,13 @@ STANDARD_NAMESPACES = {
     'sosa': Namespace("http://www.w3.org/ns/sosa/"),
     'xsd': Namespace("http://www.w3.org/2001/XMLSchema#"), 
     'ex_kg': Namespace("http://homey/example_graph/"),
-    'dg': Namespace("http://homey/data_gathering/")	    
+    'dg': Namespace("http://homey/data_gathering/"),
+    'foaf':Namespace("http://xmlns.com/foaf/0.1/"),	
+    'qudt':Namespace("http://qudt.org/schema/qudt/"),
+    'qudt-unit': Namespace("http://qudt.org/vocab/unit/")
 }
 
-DEFAULT_ENDPOINT = "http://192.168.104.78:7200/repositories/homey"
+DEFAULT_ENDPOINT = "http://192.168.104.78:7200/repositories/test"
 
 class Session:
     def __init__(self, namespaces=None, endpoint = DEFAULT_ENDPOINT):
