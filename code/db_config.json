@@ -15,4 +15,17 @@
         "MYSQL_PASSWORD" : "your-password-here"
     }
 
+    "mongodb":{
+        "MONGO_URI" : "mongodb://localhost:27017/",
+        "MONGO_DB" : "homey"
+    },
+    
+    "postgres":{
+        "DB_NAME" : "postgres",
+        "DB_USER" : "your-username-here",
+        "DB_PASS" : "your-password-here",
+        "DB_HOST" : "localhost",
+        "DB_PORT" : "5432"
+    }
+
 }
