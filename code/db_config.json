@@ -1,18 +1,18 @@
 {
     "influxdb" : {
-        "address" : "http://192.168.104.78:8086",
+        "address" : "http://localhost:8086",
         "port" : 8086,
-        "username" : "admin",
-        "password" : "adminDAISY",
+        "username" : "your-username-here",
+        "password" : "your-password-here",
         "org" : "HOMEY",
-        "token" : "2HMzOE2JB_Hk8EOdL57kkTAuNEZA2A5JhRzL6LEpt3d6ozA1KWaMMZmFah3FNz6o7W_xCmpSB-RHT0jkqZU3UA=="
+        "token" : "your-token-here"
     },
 
     "mysql" : {
-        "MYSQL_HOST" : "192.168.104.78",
+        "MYSQL_HOST" : "localhost",
         "MYSQL_DATABASE" : "homey_db",
-        "MYSQL_USER" : "root",
-        "MYSQL_PASSWORD" : "rootHOMEY2024!"
+        "MYSQL_USER" : "your-username-here",
+        "MYSQL_PASSWORD" : "your-password-here"
     }
 
 }
