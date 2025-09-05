@@ -23,7 +23,7 @@ STANDARD_NAMESPACES = {
     'qudt-unit': Namespace("http://qudt.org/vocab/unit/")
 }
 
-DEFAULT_ENDPOINT = "http://192.168.104.78:7200/repositories/test"
+DEFAULT_ENDPOINT = "http://localhost:7200/repositories/test"
 
 class Session:
     def __init__(self, namespaces=None, endpoint = DEFAULT_ENDPOINT):
