@@ -1,0 +1,177 @@
+version: '3.9'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - /opt/zookeeper/config/zookeeper.properties:/conf/zookeeper.properties
+      - /opt/zookeeper/data:/data
+      - /opt/zookeeper/datalog:/datalog
+    networks:
+      - bridge
+    restart: always
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+    volumes:
+      - /opt/kafka/config/server.properties:/kafka/config/server.properties
+      - /opt/kafka/data:/var/lib/kafka/data
+      - /opt/kafka/logs:/var/log/kafka
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+    networks:
+      - bridge
+    restart: always
+
+  influxdb:
+    image: influxdb:2
+    container_name: influxdb2
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb2-data:/var/lib/influxdb2
+      - influxdb2-config:/etc/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ADMIN_USERNAME
+      DOCKER_INFLUXDB_INIT_PASSWORD: ADMIN_PASSWORD
+      DOCKER_INFLUXDB_INIT_ORG: ORG_NAME
+      DOCKER_INFLUXDB_INIT_BUCKET: BUCKET_NAME
+    networks:
+      - bridge
+    restart: always
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: homey_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - bridge
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - bridge
+    restart: always
+
+   trino:
+    image: trinodb/trino:latest
+    container_name: trino
+    ports:
+      - "7070:7070"
+    volumes:
+      # Config principale
+      - ./trino/config.properties:/etc/trino/config.properties
+      # Catalogs
+      - ./trino/catalog/mysql.properties:/etc/trino/catalog/mysql.properties
+      - ./trino/catalog/postgres.properties:/etc/trino/catalog/postgres.properties
+      - ./trino/catalog/mongodb.properties:/etc/trino/catalog/mongodb.properties
+    networks:
+      - bridge
+    restart: always
+
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    restart: always
+    networks:
+      - bridge
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    volumes:
+      - /VOL200GB/mosquitto/config:/mosquitto/config
+      - /VOL200GB/mosquitto/data:/mosquitto/data
+      - /VOL200GB/mosquitto/log:/mosquitto/log
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    stdin_open: true
+    tty: true
+    networks:
+      - bridge
+    restart: always
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - bridge
+    restart: always
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: homey_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - bridge
+    restart: always
+
+  graphdb:
+    image: ontotext/graphdb:latest
+    container_name: graphdb
+    ports:
+      - "7200:7200"
+    volumes:
+      - graphdb-data:/opt/graphdb/home
+    networks:
+      - bridge
+    restart: always
+
+volumes:
+  influxdb2-data:
+  influxdb2-config:
+  mysql_data:
+  mongodb-data:
+  redis-data:
+  postgres-data:
+  graphdb-data:
+
+networks:
+  bridge:
+    driver: bridge
