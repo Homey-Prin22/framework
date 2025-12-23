@@ -5,8 +5,8 @@ All components are encapsulated in Docker containers and orchestrated through Do
 
 ## Infrastructure Prerequisites
 The deployment requires the following software components:
-•	Docker (version ≥ 24)
-•	Docker Compose (v2)
+- Docker (version ≥ 24)
+- Docker Compose (v2)
 
 ## Container Details
 ...
