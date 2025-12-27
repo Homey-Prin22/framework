@@ -1,0 +1,88 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix st:  <http://homey/st#> .
+@prefix sg:   <http://homey/sg#> .
+
+
+# Classes
+st:Pipeline           a owl:Class .
+st:Node               a owl:Class .
+
+### Source
+st:Source             a owl:Class ; rdfs:subClassOf st:Node .
+st:KafkaSource        a owl:Class ; rdfs:subClassOf st:Source .
+
+### ProcessStream
+st:ProcessStream           a owl:Class ; rdfs:subClassOf st:Node .
+st:RawStream               a owl:Class ; rdfs:subClassOf st:ProcessStream .
+st:KeyedStream      a owl:Class ; rdfs:subClassOf st:ProcessStream .
+st:WindowedStream      a owl:Class ; rdfs:subClassOf st:ProcessStream .
+st:AggregatedStream      a owl:Class ; rdfs:subClassOf st:ProcessStream .
+
+### Transformations
+st:Transformation     a owl:Class ; rdfs:subClassOf st:Node .
+st:Map                a owl:Class ; rdfs:subClassOf st:Transformation .
+st:Filter             a owl:Class ; rdfs:subClassOf st:Transformation .
+st:Group              a owl:Class ; rdfs:subClassOf st:Transformation .
+st:Aggregation        a owl:Class ; rdfs:subClassOf st:Transformation .
+st:Union              a owl:Class ;
+                       rdfs:subClassOf st:Transformation , [
+                           a owl:Restriction ;
+                           owl:onProperty st:consumes ;
+                           owl:minCardinality "2"^^xsd:nonNegativeInteger
+                       ] .
+
+st:Window             a owl:Class ; rdfs:subClassOf st:Transformation .  
+st:Tumbling     a owl:Class ; rdfs:subClassOf st:Window .   
+st:Hopping      a owl:Class ; rdfs:subClassOf st:Window .   
+st:Session      a owl:Class ; rdfs:subClassOf st:Window .   
+st:Count        a owl:Class ; rdfs:subClassOf st:Window .   
+
+
+### Sinks
+st:Sink               a owl:Class ; rdfs:subClassOf st:Node .
+st:PrintSink          a owl:Class ; rdfs:subClassOf st:Sink .
+st:FileSink           a owl:Class ; rdfs:subClassOf st:Sink .
+st:KafkaSink          a owl:Class ; rdfs:subClassOf st:Sink .
+
+###############################################################
+
+# ObjectProperties
+
+### Node connectivity
+st:hasNode	       a owl:ObjectProperty ;
+                       rdfs:domain st:Pipeline ;
+			rdfs:range st:Node .
+			
+st:nextNode            a owl:ObjectProperty ;
+                       rdfs:domain st:Node ;
+                       rdfs:range st:Node .
+
+st:produces rdf:type owl:ObjectProperty ;
+                rdfs:domain [ owl:unionOf ( st:Transformation st:Source ) ] ;
+                rdfs:range st:ProcessStream .
+
+
+st:consumes rdf:type owl:ObjectProperty ;
+                   rdfs:domain [ owl:unionOf ( st:Transformation st:Sink ) ] ;
+                   rdfs:range st:ProcessStream .
+
+st:readsFrom	           a owl:DatatypeProperty ; rdfs:domain st:KafkaSource ; rdfs:range sg:KafkaStream .
+
+st:writesTo	           a owl:DatatypeProperty ; rdfs:domain st:KafkaSink ; rdfs:range sg:KafkaStream .	
+                   
+                   
+### Stream properties
+st:appliesToField         a owl:DatatypeProperty ; rdfs:domain [owl:unionOf (st:Map st:Filter st:Group st:Aggregation)]; rdfs:range sg:Field .
+st:aggregationFunction    a owl:DatatypeProperty ; rdfs:domain st:Aggregation ; rdfs:range sg:Field . # sum,max,min,avg
+
+###############################################################
+
+# DatatypeProperties
+
+st:filterCondition        a owl:DatatypeProperty ; rdfs:domain st:Filter ; rdfs:range xsd:string . 
+st:windowDuration         a owl:DatatypeProperty ; rdfs:domain st:Window ; rdfs:range xsd:int .
+st:windowHop              a owl:DatatypeProperty ; rdfs:domain st:Window ; rdfs:range xsd:int .
+st:filePath               a owl:DatatypeProperty ; rdfs:domain st:FileSink ; rdfs:range xsd:string .
