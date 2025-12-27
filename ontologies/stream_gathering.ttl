@@ -1,0 +1,81 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix ssn: <http://www.w3.org/ns/ssn/>.
+@prefix sg: <http://homey/sg#>.
+
+# Classes
+
+sg:Stream a owl:Class.
+sg:KafkaStream a owl:Class; 
+	       rdfs:subClassOf sg:Stream.
+sg:MQTTStream a owl:Class; 
+              rdfs:subClassOf sg:Stream.
+
+sg:Schema a owl:Class .
+sg:Field a owl:Class.
+sg:MonitoringSpecs a owl:Class.
+sg:StorageSpecs a owl:Class.
+
+###############################################################
+
+# Object Properties
+
+sg:hasSchema a owl:ObjectProperty ;
+  rdfs:domain sg:Stream ;
+  rdfs:range sg:Schema .
+
+sg:hasField a owl:ObjectProperty ;
+  rdfs:domain sg:Schema ; 
+  rdfs:range sg:Field .
+
+sg:relatedProperty a owl:ObjectProperty ;
+  rdfs:domain sg:Field ;
+  rdfs:range ssn:Property .
+
+sg:fieldToStore a owl:ObjectProperty ;
+  rdfs:domain sg:StorageSpecs ;
+  rdfs:range sg:Field .
+
+sg:fieldToFilter a owl:ObjectProperty ;
+  rdfs:domain sg:MonitoringSpecs ;
+  rdfs:range sg:Field .
+
+sg:hasMonitoringSpecs a owl:ObjectProperty ;
+   rdfs:domain sg:Stream;
+   rdfs:range sg:MonitoringSpecs.
+   
+sg:hasStorageSpecs a owl:ObjectProperty ;
+   rdfs:domain sg:Stream;
+   rdfs:range sg:StorageSpecs.
+   
+
+###############################################################
+
+# Data Properties 
+
+sg:topic a owl:DatatypeProperty ;
+  rdfs:domain sg:Stream ;
+  rdfs:range xsd:string .
+
+sg:fieldPath a owl:DatatypeProperty ;
+  rdfs:domain sg:Field ;
+  rdfs:range xsd:string .
+
+sg:fieldType a owl:DatatypeProperty ;
+  rdfs:domain sg:Field ;
+  rdfs:range xsd:string .
+
+sg:dbms a owl:DatatypeProperty ;
+  rdfs:domain sg:StorageSpecs ;
+  rdfs:range xsd:string .
+  
+sg:database a owl:DatatypeProperty ;
+  rdfs:domain sg:StorageSpecs ;
+  rdfs:range xsd:string .
+  
+sg:table a owl:DatatypeProperty ;
+  rdfs:domain sg:StorageSpecs ;
+  rdfs:range xsd:string .
+
